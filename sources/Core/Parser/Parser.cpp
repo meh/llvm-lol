@@ -123,9 +123,9 @@ Parser::_parseToken (void)
                 else {
                     std::string* version = new std::string;
                     
-                    version += lastChar;
+                    (*version) += lastChar;
                     while (!std::isspace((lastChar = _nextChar()))) {
-                        version += lastChar;
+                        (*version) += lastChar;
                     }
 
                     return new Token(Token::Beginning, version);
