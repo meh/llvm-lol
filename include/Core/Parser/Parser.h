@@ -3,12 +3,17 @@
 
 #include <string>
 
+#include "Core/AST/api.h"
+
 namespace Core {
 
 class Parser
 {
   public:
-    #include "Parser/Token.h"
+    #include "Core/Parser/Token.h"
+
+  public:
+    typedef int (*Function)(AST::Base*);
 
   protected:
     FILE*       _file;
@@ -21,9 +26,15 @@ class Parser
     Parser (FILE* file);
     Parser (const char* source);
 
-    Token* currentToken (void);
+    AST::Tree parse (void);
+    void      parse (Function function);
 
-    virtual Token* nextToken (void);
+  private: 
+    char _nextChar (void);
+
+    Token* _currentToken (void);
+    Token* _nextToken (void); 
+    Token* _parseToken (void);
 };
 
 }

@@ -2,16 +2,28 @@
 
 class Token
 {
+  public:
+    typedef int Type;
+
+  public:
+    enum Types {
+        Unknown = 0,
+
+        Beginning, End
+    };
+
   protected:
     int  _type;
     void* _data;
 
   public:
     Token (void);
-    Token (int type, void* data);
+    Token (Type type, void* data);
+
+    virtual ~Token (void);
 
     Type type (void);
-    void type (int type);
+    void type (Type type);
 
     void* data (void);
     void  data (void* data);
