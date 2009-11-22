@@ -1,6 +1,9 @@
 #include "Core/Parser/Parser.h"
 
+#include <cstdio>
 #include <cctype>
+
+#include <iostream>
 
 #include "Constants.h"
 
@@ -30,20 +33,54 @@ Parser::Parser (const char* source)
     _current = NULL;
 }
 
+AST::Tree
+Parser::parse (void)
+{
+    AST::Tree tree;
+    Token*    token = NULL;
+
+    do {
+        if (token) {
+            delete token;
+        }
+
+        token = _nextToken();
+
+        switch (token->type()) {
+            case Token::Beginning:
+            std::cout << "Language version: " << *((std::string*) token->data()) << std::endl;
+            break;
+
+            case Token::End:
+            std::cout << "Program end." << std::endl;
+            break;
+        }
+    } while (token->type() != Token::Unknown);
+
+    return tree;
+}
+
 char
 Parser::_nextChar (void)
 {
-    if (_file) {
+    if (_file != NULL) {
         int ch;
 
-        if ((ch = fgetc(_file)) == EOF) {
+        if ((ch = std::fgetc(_file)) == EOF) {
             return 0;
         }
 
         return (char) ch;
     }
+    else if (_source != NULL) {
+        if (*(_source) != '\0') {
+            _source++;
+        }
+
+        return *(_source);
+    }
     else {
-        return *(++_source);
+        return 0;
     }
 }
 
@@ -76,7 +113,9 @@ Parser::_parseToken (void)
             }
 
             if (identifier == "HAI") {
-                while (std::isspace((lastChar = _nextChar())));
+                if (lastChar != '\n') {
+                    while (std::isspace((lastChar = _nextChar())));
+                }
 
                 if (lastChar == '\n') {
                     return new Token(Token::Beginning, new std::string(LOL_DEFAULT_VERSION));
@@ -85,7 +124,7 @@ Parser::_parseToken (void)
                     std::string* version = new std::string;
                     
                     version += lastChar;
-                    while (std::isalnum((lastChar = _nextChar()))) {
+                    while (!std::isspace((lastChar = _nextChar()))) {
                         version += lastChar;
                     }
 

@@ -3,7 +3,7 @@ VERSION = 0.1
 
 CXX = llvm-g++
 
-CFLAGS   = -Wall -pedantic $(shell llvm-config --cxxflags core) -I./include/ -I./sources/
+CFLAGS   = -Wall -pedantic -g3 -I./include/ -I./sources/ $(shell llvm-config --cxxflags core)
 CXXFLAGS = ${CFLAGS}
 LDFLAGS  = $(shell llvm-config --ldflags --libs core)
 

@@ -13,7 +13,7 @@ class Token
     };
 
   protected:
-    int  _type;
+    int   _type;
     void* _data;
 
   public:
