@@ -9,7 +9,7 @@ class Token
     enum Types {
         Unknown = 0,
 
-        Beginning, End
+        Version
     };
 
   protected:

@@ -8,7 +8,9 @@ CXXFLAGS = ${CFLAGS}
 LDFLAGS  = $(shell llvm-config --ldflags --libs core)
 
 DIR   = sources
-FILES = ${DIR}/main.o ${DIR}/Core/Parser/Parser.o ${DIR}/Core/Parser/Token.o ${DIR}/Core/AST/AST.o
+FILES = ${DIR}/main.o \
+	    ${DIR}/Core/Parser/Parser.o ${DIR}/Core/Parser/Token.o \
+		${DIR}/Core/AST/Base.o ${DIR}/Core/AST/Error.o
 
 all: $(FILES)
 	${CXX} ${CFLAGS} -o ${NAME} $(FILES) ${LDFLAGS}

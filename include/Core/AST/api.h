@@ -3,7 +3,10 @@
 
 #include <list>
 
-#include "Core/AST/AST.h"
+#include "Core/AST/Types.h"
+
+#include "Core/AST/Base.h"
+#include "Core/AST/Error.h"
 
 namespace Core {
 

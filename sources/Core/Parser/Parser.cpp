@@ -7,6 +7,8 @@
 
 #include "Constants.h"
 
+#include "LOLCODE/1.2/api.h"
+
 namespace Core {
 
 Parser::Parser (void)
@@ -33,29 +35,29 @@ Parser::Parser (const char* source)
     _current = NULL;
 }
 
-AST::Tree
+AST::Tree*
 Parser::parse (void)
 {
-    AST::Tree tree;
-    Token*    token = NULL;
+    AST::Tree* tree = new AST::Tree;
+    Token*     token;
 
-    do {
-        if (token) {
-            delete token;
-        }
+    token = _nextToken();
 
-        token = _nextToken();
+    if (token->type() != Token::Version) {
+        tree->push_back(new AST::Error("The source must begin with a HAI instruction."));
+        return tree;
+    }
 
-        switch (token->type()) {
-            case Token::Beginning:
-            std::cout << "Language version: " << *((std::string*) token->data()) << std::endl;
-            break;
+    std::string version = *((std::string*) token->data());
 
-            case Token::End:
-            std::cout << "Program end." << std::endl;
-            break;
-        }
-    } while (token->type() != Token::Unknown);
+    if (version == "1.2") {
+        LOLCODE::_1_2::Parser parser;
+        AST::Tree* toMerge = parser.parse((_file ? _file : _source));
+
+        tree->merge(*toMerge);
+
+        delete toMerge;
+    }
 
     return tree;
 }
@@ -118,7 +120,7 @@ Parser::_parseToken (void)
                 }
 
                 if (lastChar == '\n') {
-                    return new Token(Token::Beginning, new std::string(LOL_DEFAULT_VERSION));
+                    return new Token(Token::Version, new std::string(LOL_DEFAULT_VERSION));
                 }
                 else {
                     std::string* version = new std::string;
@@ -128,11 +130,8 @@ Parser::_parseToken (void)
                         (*version) += lastChar;
                     }
 
-                    return new Token(Token::Beginning, version);
+                    return new Token(Token::Version, version);
                 }
-            }
-            else if (identifier == "KTHXBYE") {
-                return new Token(Token::End, NULL);
             }
             else {
                 if (identifier == "BTW") {

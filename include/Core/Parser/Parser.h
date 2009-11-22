@@ -26,8 +26,8 @@ class Parser
     Parser (FILE* file);
     Parser (const char* source);
 
-    AST::Tree parse (void);
-    void      parse (Function function);
+    AST::Tree* parse (void);
+    void       parse (Function function);
 
   private: 
     char _nextChar (void);
