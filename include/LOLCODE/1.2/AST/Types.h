@@ -20,6 +20,7 @@ class Types
         // Variable
         Variable = 100,
         Assignment,
+        Define,
 
         // Operator
         Binary = 200,

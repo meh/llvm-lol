@@ -3,9 +3,9 @@ VERSION = 0.1
 
 CXX = llvm-g++
 
-CFLAGS   = -Wall -pedantic -g3 -I./include/ -I./sources/ $(shell llvm-config --cxxflags core)
+CFLAGS   = -Wall -pedantic -g3 -I./include/ -I./sources/ $(shell llvm-config --cxxflags core jit native)
 CXXFLAGS = ${CFLAGS}
-LDFLAGS  = $(shell llvm-config --ldflags --libs core)
+LDFLAGS  = $(shell llvm-config --ldflags --libs core jit native)
 
 DIR   = sources
 FILES = ${DIR}/main.o \
@@ -13,7 +13,7 @@ FILES = ${DIR}/main.o \
 		${DIR}/Core/AST/Base.o ${DIR}/Core/AST/Error.o ${DIR}/Core/AST/Version.o \
 			\
 		${DIR}/LOLCODE/1.2/Parser/Parser.o ${DIR}/LOLCODE/1.2/Parser/Token.o \
-		${DIR}/LOLCODE/1.2/AST/Variable/Variable.o ${DIR}/LOLCODE/1.2/AST/Variable/Assignment.o \
+		${DIR}/LOLCODE/1.2/AST/Variable/Variable.o ${DIR}/LOLCODE/1.2/AST/Variable/Assignment.o ${DIR}/LOLCODE/1.2/AST/Variable/Define.o \
 		${DIR}/LOLCODE/1.2/AST/Operator/Binary.o \
 		${DIR}/LOLCODE/1.2/AST/Function/Call.o ${DIR}/LOLCODE/1.2/AST/Function/Prototype.o ${DIR}/LOLCODE/1.2/AST/Function/Function.o \
 		${DIR}/LOLCODE/1.2/CodeGenerator.o
