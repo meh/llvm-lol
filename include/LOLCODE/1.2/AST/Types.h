@@ -11,7 +11,12 @@ class Types
 {
   public:
     enum Type {
-        Variable = 100
+        Variable = 100,
+        Number,
+
+        BinaryOperator = 200,
+
+        Call = 300
     };
 };
 

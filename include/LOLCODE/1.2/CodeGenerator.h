@@ -18,11 +18,11 @@ class CodeGenerator
     llvm::IRBuilder<>* _builder;
     std::map<std::string, llvm::Value*> _namedValues;
 
-    AST::Tree* _tree;
+    Core::AST::Tree* _tree;
 
   public:
     CodeGenerator (void);
-    CodeGenerator (AST::Tree* tree);
+    CodeGenerator (Core::AST::Tree* tree);
 
     ~CodeGenerator (void);
 

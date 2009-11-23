@@ -1,4 +1,4 @@
-#include "Core/CodeGenerator.h"
+#include "LOLCODE/1.2/CodeGenerator.h"
 
 namespace LOLCODE {
 
@@ -10,7 +10,7 @@ CodeGenerator::CodeGenerator (void)
     _builder = new llvm::IRBuilder<>(llvm::getGlobalContext());
 }
 
-CodeGenerator::CodeGenerator (AST::Tree* tree)
+CodeGenerator::CodeGenerator (Core::AST::Tree* tree)
 {
     _module = new llvm::Module("LULZ", llvm::getGlobalContext());
     _builder = new llvm::IRBuilder<>(llvm::getGlobalContext());
@@ -36,7 +36,7 @@ CodeGenerator::generate (Core::AST::Tree* tree)
 void*
 CodeGenerator::generate (Core::AST::Base* element)
 {
-
+    return NULL;
 }
 
 void
