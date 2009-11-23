@@ -1,5 +1,5 @@
-#ifndef _LOL_LOLCODE_1_2_AST_BINARYOPERATOR_H
-#define _LOL_LOLCODE_1_2_AST_BINARYOPERATOR_H
+#ifndef _LOL_LOLCODE_1_2_AST_OPERATOR_BINARY_H
+#define _LOL_LOLCODE_1_2_AST_OPERATOR_BINARY_H
 
 #include "Core/AST/api.h"
 
@@ -9,7 +9,9 @@ namespace _1_2 {
 
 namespace AST {
 
-class BinaryOperator : public Core::AST::Base
+namespace Operator {
+
+class Binary : public Core::AST::Base
 {
   public:
     class Operator {
@@ -29,14 +31,16 @@ class BinaryOperator : public Core::AST::Base
     Core::AST::Base* _RHS;
 
   public:
-    BinaryOperator (void);
-    BinaryOperator (int type, Core::AST::Base* LHS, Core::AST::Base* RHS);
+    Binary (void);
+    Binary (int type, Core::AST::Base* LHS, Core::AST::Base* RHS);
 
-    virtual ~BinaryOperator (void);
+    virtual ~Binary (void);
 
     Core::AST::Base* LHS (void);
     Core::AST::Base* RHS (void);
 };
+
+}
 
 }
 

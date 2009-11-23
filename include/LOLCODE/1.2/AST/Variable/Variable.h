@@ -9,6 +9,8 @@ namespace _1_2 {
 
 namespace AST {
 
+namespace Variable {
+
 class Variable : public Core::AST::Base
 {
   public:
@@ -42,6 +44,8 @@ class Variable : public Core::AST::Base
     double      toNUMBAR (void);
     bool        toTROOF (void);
 };
+
+}
 
 }
 

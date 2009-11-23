@@ -1,5 +1,5 @@
-#ifndef _LOL_LOLCODE_1_2_AST_CALL_H
-#define _LOL_LOLCODE_1_2_AST_CALL_H
+#ifndef _LOL_LOLCODE_1_2_AST_FUNCTION_CALL_H
+#define _LOL_LOLCODE_1_2_AST_FUNCTION_CALL_H
 
 #include <vector>
 
@@ -10,6 +10,8 @@ namespace LOLCODE {
 namespace _1_2 {
 
 namespace AST {
+
+namespace Function {
 
 class Call : public Core::AST::Base
 {
@@ -28,6 +30,8 @@ class Call : public Core::AST::Base
     std::vector<Core::AST::Base*> arguments (void);
 
 };
+
+}
 
 }
 

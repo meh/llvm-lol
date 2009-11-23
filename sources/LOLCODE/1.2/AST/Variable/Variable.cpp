@@ -1,4 +1,4 @@
-#include "LOLCODE/1.2/AST/Variable.h"
+#include "LOLCODE/1.2/AST/Variable/Variable.h"
 #include "LOLCODE/1.2/AST/Types.h"
 
 #include <cstdlib>
@@ -8,6 +8,8 @@ namespace LOLCODE {
 namespace _1_2 {
 
 namespace AST {
+
+namespace Variable {
 
 Variable::Variable (void) : Core::AST::Base(Types::Variable)
 {
@@ -113,6 +115,8 @@ Variable::toTROOF (void)
         default: // NOOB
         return false;
     }
+}
+
 }
 
 }

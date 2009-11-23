@@ -1,4 +1,4 @@
-#include "LOLCODE/1.2/AST/Call.h"
+#include "LOLCODE/1.2/AST/Function/Call.h"
 #include "LOLCODE/1.2/AST/Types.h"
 
 namespace LOLCODE {
@@ -6,6 +6,8 @@ namespace LOLCODE {
 namespace _1_2 {
 
 namespace AST {
+
+namespace Function {
 
 Call::Call (void) : Core::AST::Base (Types::Call)
 {
@@ -31,6 +33,8 @@ std::vector<Core::AST::Base*>
 Call::arguments (void)
 {
     return _arguments;
+}
+
 }
 
 }

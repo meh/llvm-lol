@@ -11,12 +11,23 @@ class Types
 {
   public:
     enum Type {
+        // Data
+        Integer = 50,
+        Floating,
+        String,
+        Boolean,
+        
+        // Variable
         Variable = 100,
-        Number,
+        Assignment,
 
-        BinaryOperator = 200,
+        // Operator
+        Binary = 200,
 
-        Call = 300
+        // Function
+        Call = 300,
+        Prototype,
+        Function
     };
 };
 
