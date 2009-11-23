@@ -7,6 +7,44 @@ namespace LOLCODE {
 
 namespace _1_2 {
 
+namespace AST {
+
+class Variable : public Core::AST::Base
+{
+  public:
+    class Cast {
+      public:
+        static const int NOOB   = 0;
+        static const int YARN   = 1;
+        static const int NUMBR  = 2;
+        static const int NUMBAR = 3;
+        static const int TROOF  = 4;
+    };
+
+  private:
+    int         _cast;
+    std::string _value;
+
+  public:
+    Variable (void);
+    Variable (std::string value, int cast = Cast::NOOB);
+
+    virtual ~Variable (void);
+
+    std::string value (void);
+    void        value (std::string value);
+
+    int  cast (bool assume = false);
+    void cast (int cast);
+
+    std::string toYARN (void);
+    long        toNUMBR (void);
+    double      toNUMBAR (void);
+    bool        toTROOF (void);
+};
+
+}
+
 }
 
 }

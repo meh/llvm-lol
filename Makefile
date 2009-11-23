@@ -13,7 +13,8 @@ FILES = ${DIR}/main.o \
 		${DIR}/Core/AST/Base.o ${DIR}/Core/AST/Error.o ${DIR}/Core/AST/Version.o \
 			\
 		${DIR}/LOLCODE/1.2/Parser/Parser.o ${DIR}/LOLCODE/1.2/Parser/Token.o \
-		${DIR}/LOLCODE/1.2/AST/Variable.o
+		${DIR}/LOLCODE/1.2/AST/Variable.o \
+		${DIR}/LOLCODE/1.2/CodeGenerator.o
 
 all: $(FILES)
 	${CXX} ${CFLAGS} -o ${NAME} $(FILES) ${LDFLAGS}
