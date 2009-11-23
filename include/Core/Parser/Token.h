@@ -13,12 +13,14 @@ class Token
     };
 
   protected:
+    unsigned _line;
+
     int   _type;
     void* _data;
 
   public:
     Token (void);
-    Token (Type type, void* data);
+    Token (Type type, void* data, unsigned line = 0);
 
     virtual ~Token (void);
 

@@ -10,7 +10,10 @@ LDFLAGS  = $(shell llvm-config --ldflags --libs core)
 DIR   = sources
 FILES = ${DIR}/main.o \
 	    ${DIR}/Core/Parser/Parser.o ${DIR}/Core/Parser/Token.o \
-		${DIR}/Core/AST/Base.o ${DIR}/Core/AST/Error.o
+		${DIR}/Core/AST/Base.o ${DIR}/Core/AST/Error.o ${DIR}/Core/AST/Version.o \
+			\
+		${DIR}/LOLCODE/1.2/Parser/Parser.o ${DIR}/LOLCODE/1.2/Parser/Token.o \
+		${DIR}/LOLCODE/1.2/AST/Variable.o
 
 all: $(FILES)
 	${CXX} ${CFLAGS} -o ${NAME} $(FILES) ${LDFLAGS}

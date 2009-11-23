@@ -3,8 +3,6 @@
 #include <cstdio>
 #include <cctype>
 
-#include <iostream>
-
 #include "Constants.h"
 
 #include "LOLCODE/1.2/api.h"
@@ -35,6 +33,13 @@ Parser::Parser (const char* source)
     _current = NULL;
 }
 
+Parser::~Parser (void)
+{
+    if (_current) {
+        delete _current;
+    }
+}
+
 AST::Tree*
 Parser::parse (void)
 {
@@ -49,17 +54,38 @@ Parser::parse (void)
     }
 
     std::string version = *((std::string*) token->data());
+    tree->push_back(new AST::Version(version));
 
     if (version == "1.2") {
-        LOLCODE::_1_2::Parser parser;
-        AST::Tree* toMerge = parser.parse((_file ? _file : _source));
+        AST::Tree* toMerge;
+
+        if (_file) {
+            LOLCODE::_1_2::Parser parser(_file);
+            toMerge = parser.parse();
+        }
+        else if (_source) {
+            LOLCODE::_1_2::Parser parser(_source);
+            toMerge = parser.parse();
+        }
+        else {
+            toMerge = new AST::Tree();
+        }
 
         tree->merge(*toMerge);
 
         delete toMerge;
     }
+    else {
+        tree->pop_back();
+        tree->push_back(new AST::Error("Unknown language version."));
+    }
 
     return tree;
+}
+
+void
+Parser::parse (Parser::Function function)
+{
 }
 
 char
@@ -101,7 +127,8 @@ Parser::_nextToken (void)
 Parser::Token*
 Parser::_parseToken (void)
 {
-    static char lastChar;
+    static char     lastChar;
+    static unsigned line = 0;
 
     do {
         lastChar = _nextChar();
@@ -120,7 +147,8 @@ Parser::_parseToken (void)
                 }
 
                 if (lastChar == '\n') {
-                    return new Token(Token::Version, new std::string(LOL_DEFAULT_VERSION));
+                    line++;
+                    return new Token(Token::Version, new std::string(LOL_DEFAULT_VERSION), line);
                 }
                 else {
                     std::string* version = new std::string;
@@ -130,18 +158,23 @@ Parser::_parseToken (void)
                         (*version) += lastChar;
                     }
 
-                    return new Token(Token::Version, version);
+                    return new Token(Token::Version, version, line);
                 }
             }
             else {
                 if (identifier == "BTW") {
                     while ((lastChar = _nextChar()) != '\n');
+                    line++;
                 }
                 else if (identifier == "OBTW") {
                     std::string comment = "    ";
 
                     while (comment.substr(comment.length() - 4, 4) != "TLDR") {
                         comment += (lastChar = _nextChar());
+                        
+                        if (lastChar == '\n') {
+                            line++;
+                        }
                     }
                 }
 

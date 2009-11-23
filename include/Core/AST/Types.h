@@ -9,7 +9,9 @@ class Types
 {
   public:
     enum Type {
-        Error = -100
+        Error = -100,
+
+        Version = 1
     };
 };
 

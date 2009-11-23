@@ -10,7 +10,7 @@ namespace Core {
 class Parser
 {
   public:
-    #include "Core/Parser/Token.h"
+    #include "Token.h"
 
   public:
     typedef int (*Function)(AST::Base*);
@@ -26,13 +26,17 @@ class Parser
     Parser (FILE* file);
     Parser (const char* source);
 
-    AST::Tree* parse (void);
-    void       parse (Function function);
+    virtual ~Parser (void);
 
-  private: 
+    virtual AST::Tree* parse (void);
+    virtual void       parse (Function function);
+
+  protected:
     char _nextChar (void);
 
     Token* _currentToken (void);
+
+  private: 
     Token* _nextToken (void); 
     Token* _parseToken (void);
 };

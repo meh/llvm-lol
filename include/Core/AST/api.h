@@ -7,6 +7,7 @@
 
 #include "Core/AST/Base.h"
 #include "Core/AST/Error.h"
+#include "Core/AST/Version.h"
 
 namespace Core {
 

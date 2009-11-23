@@ -15,7 +15,7 @@ class Error : public Base
     std::string _message;
 
   public:
-    Error (const char* message);
+    Error (std::string message);
 
     std::string message (void);
 };

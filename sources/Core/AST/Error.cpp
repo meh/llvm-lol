@@ -5,11 +5,9 @@ namespace Core {
 
 namespace AST {
 
-Error::Error (const char* message) : Base ()
+Error::Error (std::string message) : Base (Types::Error)
 {
     _message = message;
-
-    _type = Types::Error;
 }
 
 std::string

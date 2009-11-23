@@ -4,19 +4,21 @@ namespace Core {
 
 Parser::Token::Token (void)
 {
+    _line = 0;
     _type = Unknown;
     _data = NULL;
 }
 
-Parser::Token::Token (Parser::Token::Type type, void* data)
+Parser::Token::Token (Parser::Token::Type type, void* data, unsigned line)
 {
+    _line = line;
     _type = type;
     _data = data;
 }
 
 Parser::Token::~Token (void)
 {
-    if (_type == Beginning) {
+    if (_type == Version) {
         delete (std::string*) _data;
     }
 }

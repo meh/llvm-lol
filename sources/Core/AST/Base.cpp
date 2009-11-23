@@ -4,6 +4,11 @@ namespace Core {
 
 namespace AST {
 
+Base::Base (Type type)
+{
+    _type = type;
+}
+
 Base::~Base (void)
 {
 }
